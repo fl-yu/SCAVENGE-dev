@@ -17,3 +17,10 @@ A sparse matrix indicating adjacent matrix from single cells used for graph cons
 \description{
 Get a mutual kNN graph (M-kNN) from the latent space (LSI) of single cell profiles
 }
+\examples{
+\dontrun{
+mknn_graph <- getmutualknn(lsimat=LSI_mat, num_k=30)
+}
+
+
+}

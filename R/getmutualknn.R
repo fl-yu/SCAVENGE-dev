@@ -13,6 +13,11 @@
 #' @importFrom dplyr %>%
 #'
 #' @examples
+#' \dontrun{
+#' mknn_graph <- getmutualknn(lsimat=LSI_mat, num_k=30)
+#' }
+#'
+#'
 getmutualknn <- function(lsimat=lsimat, num_k=30){
 
   stopifnot("num_k must be numeric" = is.numeric(num_k))
