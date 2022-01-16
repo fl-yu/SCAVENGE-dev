@@ -2,9 +2,9 @@
 
 ### Overview:
 
-Co-localization approaches using genetic variants and single-cell epigenomic data are unfortunately uninformative for many cells given the extensive sparsity across single-cell profiles. Therefore, only a few cells from the truly relevant population demonstrate reliable phenotypic relevance. Nonetheless, the global high-dimensional features of individual single cells are sufficient to represent the underlying cell identities or states, which enables the relationships among such cells to be readily inferred15. By taking advantage of these attributes, SCAVENGE identifies the most phenotypically-enriched cells by co-localization and explores the transitive associations across the cell-to-cell network to assign each cell a probability representing the cell’s relevance to those phenotype-enriched cells via network propagation.
+Co-localization approaches using genetic variants and single-cell epigenomic data are unfortunately uninformative for many cells given the extensive sparsity across single-cell profiles. Therefore, only a few cells from the truly relevant population demonstrate reliable phenotypic relevance. Wile the global high-dimensional features of individual single cells are sufficient to represent the underlying cell identities or states, which enables the relationships among such cells to be readily inferred. By taking advantage of these attributes, SCAVENGE identifies the most phenotypically-enriched cells by co-localization and explores the transitive associations across the cell-to-cell network to assign each cell a probability representing the cell’s relevance to those phenotype-enriched cells via network propagation.
 
-To address (2), we developed a novel enrichment method (**SCAVENGE**) (Single Cell Analysis of Variant Enrichment through Network propagation of GEnomic data) that can discriminate between closely related cell types and score single cells for GWAS enrichment. 
+We developed a novel enrichment method (**SCAVENGE**) (Single Cell Analysis of Variant Enrichment through Network propagation of GEnomic data) that can discriminate between closely related cell types and score single cells for GWAS enrichment. 
 
 
 <div align=center> <img src="image/schematic-view_1.png" width="680" height="278"> </div> 
@@ -24,11 +24,11 @@ directly from GitHub by typing the following into an `R` console:
 devtools::install_github("https://github.com/sankaranlab/SCAVENGE")
 ```
 ### Tutorial:
-This web resource and vignette compiliation shows how to reproduce these results in hematopoesis and how to run **SCAVENGE** on other data sets. 
+This web resource and vignette compiliation shows how to reproduce results of SCAVENGE analysis with monocyte count on a 10X PBMC dataset [Usage Page](docs/sc-USAGE.md). 
 
 
 ### Citation:
-Variant to function mapping at single-cell resolution through network propagation
+Variant to function mapping at single-cell resolution through network propagation.
 Please cite our paper [bioRxiv](https://github.com/fl-yu/SCAVENGE)|[PubMed](https://github.com/fl-yu/SCAVENGE) if you used or adapt SCAVENGE in your study. 
 
 ### Contact:
