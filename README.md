@@ -29,7 +29,7 @@ This web resource and vignette compiliation shows how to reproduce these results
 
 ### Citation:
 Variant to function mapping at single-cell resolution through network propagation
-Please cite our paper [bioRxiv](https://github.com/fl-yu/SCAVENGE/edit/master/README.md)|[PubMed](https://github.com/fl-yu/SCAVENGE/edit/master/README.md) if you used or adapt SCAVENGE in your study. 
+Please cite our paper [bioRxiv](https://github.com/fl-yu/SCAVENGE)|[PubMed](https://github.com/fl-yu/SCAVENGE) if you used or adapt SCAVENGE in your study. 
 
 ### Contact:
 If you run into issues and would like to report them, you can use the "Issues" tab on the left hand side.  
