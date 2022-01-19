@@ -3,6 +3,7 @@
 export(capOutlierQuantile)
 export(get_sigcell_simple)
 export(getmutualknn)
+export(max_min_scale)
 export(randomWalk_sparse)
 export(tfidf)
 import(Matrix)

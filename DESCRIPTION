@@ -1,7 +1,7 @@
 Package: SCAVENGE
 Title: Identifying genetic trait/phenotype relevant cell type/state at single cell resolution
-Version: 1.0.0
-Date: 2020-01-15
+Version: 1.0.1
+Date: 2020-01-01
 Authors@R: 
     person(given = "Fulong",
            family = "Yu",
@@ -15,6 +15,29 @@ Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Depends: R (>= 3.6.0), igraph, RANN, dplyr, Matrix
+Depends:
+    R (>= 3.5.0)
+Imports:
+    RANN,
+    dplyr,
+    igraph,
+    parallel,
+    Matrix,
+    irlba
+Suggests: 
+    stringr,
+    BSgenome.Hsapiens.UCSC.hg19,
+    ggplot2,
+    data.table,
+    knitr,
+    rmarkdown,
+    methods,
+    BiocParallel,
+    chromVAR,
+    gchromVAR,
+    SummarizedExperiment,
+    GenomicRanges,
+    S4Vectors
 biocViews: Variant, Function, CellBasedAssays, Network, 
-    GeneRegulation, GeneTarget, Epigenetics, ATACSeq, SingleCell
+    Trajectory, CellType, Epigenetics, ATACSeq, SingleCell
+VignetteBuilder: knitr

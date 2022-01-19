@@ -10,7 +10,8 @@ get_sigcell_simple(
   permutation_times = 1000,
   true_cell_significance = 0.05,
   out_rda = "true_cell_df.rda",
-  mycores = 4
+  mycores = 4,
+  rw_gamma = 0.05
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ get_sigcell_simple(
 \item{out_rda}{path and name for resulting r.data}
 
 \item{mycores}{how many cores used for permutation test}
+
+\item{rw_gamma}{gamma from randomWalk_sparse function. Keep the same with what you used in the real setting}
 }
 \value{
 a dataframe with two columns, the first one is seed index (the same with input), the second one is significance from permutation test. In addition, an R data is generated, which contains this dataframe and another dataframe depicting the network propagation score for each cell at each permuation
@@ -39,6 +42,6 @@ topidx=seed_p0.05,
 permutation_times=1000,
 true_cell_significance=0.05,
 out_rda="true_cell_df.rda",
- mycores=4)}
+ mycores=4, rw_gamma=0.05)}
 
 }

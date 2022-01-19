@@ -18,10 +18,9 @@
 #' randomWalk_sparse <- tfidf(intM, queryGenes, gamma=0.05, seedWeight="NO", stationary_cutoff=1e-5)}
 #'
 randomWalk_sparse <- function(intM, queryGenes, gamma=0.05, seedWeight="NO", stationary_cutoff=1e-5) {
-  #     if(sum(!queryGenes %in% row.names(intM))>0) {
-  #         stop("queryGenes contains genes not found in intMat")
-  #     }
-  library(Matrix)
+       if(sum(!queryGenes %in% row.names(intM))>0) {
+           stop("queryGenes contains genes not found in intMat")
+       }
   Ng <- nrow(intM) # Ng is the dimension of intM
 
   intM <- t(t(intM) / colSums(intM))

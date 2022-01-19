@@ -55,6 +55,7 @@ getmutualknn <- function(lsimat=lsimat, num_k=30){
   el <- do.call(rbind.data.frame, knn2) %>% as.matrix
 
   adj <- igraph::get.adjacency(igraph::graph.edgelist(el))
-  mutualknn30 <- 1*((adj + t(adj)) > 0)
-  return(mutualknn30)
+  mutualknn <- 1*((adj + t(adj)) > 0)
+  colnames(mutualknn) <- rownames(mutualknn) <- rownames(lsimat)
+  return(mutualknn)
 }
