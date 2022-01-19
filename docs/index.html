@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,20 +33,26 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">SCAVENGE</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.1</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+<li>
+      <a href="articles/SCAVENGE-vignette.html">SCAVENGE-vignette</a>
+    </li>
+  </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -59,48 +67,84 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="scavenge" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#scavenge" class="anchor"></a>SCAVENGE</h1></div>
-<div id="about" class="section level3">
-<h3 class="hasAnchor">
-<a href="#about" class="anchor"></a>About:</h3>
-<p>Two outstanding challenges in the post-GWAS era are (1) the precise identification of causal variants within associated loci and (2) determining the exact mechanisms by which these variants result in the observed phenotypes, starting with identification of the pertinent cell types. To address (1), we used robust genetic fine mapping to identify hundreds of likely causal variants for 16 blood cell traits, allowing for up to 5 causal variants in each locus. We combined our fine-mapped results with high resolution open chromatin data for 18 primary hematopoietic populations and derived functional annotations to identify predicted target genes, mechanisms, and disease relevance. Moreover, we elucidate compelling anecdotes for the utility of this approach. To address (2), we developed a novel enrichment method (<strong>gchromVAR</strong>) that can discriminate between closely related cell types and score single cells for GWAS enrichment.</p>
-<p>We’ve implemented <strong>gchromVAR</strong> as an <code>R</code> package for computing cell-type specific GWAS enrichments from GWAS summary statistics and quantitative epigenomic data. This web resource and vignette compiliation shows how to reproduce these results in hematopoesis and how to run <strong>gchromVAR</strong> on other data sets.</p>
+<div class="section level1">
+<div class="page-header"><h1 id="scavenge">SCAVENGE<a class="anchor" aria-label="anchor" href="#scavenge"></a>
+</h1></div>
+<div class="section level3">
+<h3 id="overview">Overview:<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h3>
+<p>Co-localization approaches using genetic variants and single-cell epigenomic data are unfortunately uninformative for many cells given the extensive sparsity across single-cell profiles. Therefore, only a few cells from the truly relevant population demonstrate reliable phenotypic relevance. Wile the global high-dimensional features of individual single cells are sufficient to represent the underlying cell identities or states, which enables the relationships among such cells to be readily inferred. By taking advantage of these attributes, SCAVENGE identifies the most phenotypically-enriched cells by co-localization and explores the transitive associations across the cell-to-cell network to assign each cell a probability representing the cell’s relevance to those phenotype-enriched cells via network propagation.</p>
+<p>We developed a novel enrichment method (<strong>SCAVENGE</strong>) (Single Cell Analysis of Variant Enrichment through Network propagation of GEnomic data) that can discriminate between closely related cell types and score single cells for GWAS enrichment.</p>
+<div align="center">
+<img src="image/schematic-view_1.png" width="680" height="278">
 </div>
-<div id="installation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation:</h3>
-<p>Once all of the dependencies for <code>gchromVAR</code> are installed, the package can be installed directly from GitHub by typing the following into an <code>R</code> console:</p>
-<pre><code><a href="https://devtools.r-lib.org/reference/remote-reexports.html">devtools::install_github("caleblareau/gchromVAR")</a></code></pre>
+<p align="center">
+Schematic view of SCAVENGE
+</p>
+<p>We’ve implemented <strong>SCAVENGE</strong> as an <code>R</code> package for computing single-cell based GWAS enrichments from fine-mapped posterior probabilities and quantitative epigenomic data (i.e. scATAC-seq and potentially other single-cell epigenome profiling).</p>
+</div>
+<div class="section level3">
+<h3 id="installation">Installation:<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h3>
+<p>Once all of the dependencies for <code>SCAVENGE</code> are installed, the package can be installed directly from GitHub by typing the following into an <code>R</code> console:</p>
+<pre><code><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org/reference/remote-reexports.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"https://github.com/sankaranlab/SCAVENGE"</span><span class="op">)</span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="tutorial">Tutorial:<a class="anchor" aria-label="anchor" href="#tutorial"></a>
+</h3>
+<p>This web resource and vignette compiliation shows how to reproduce results of SCAVENGE analysis with monocyte count on a 10X PBMC dataset <a href="docs/sc-USAGE.html">Usage Page</a>.</p>
+</div>
+<div class="section level3">
+<h3 id="citation">Citation:<a class="anchor" aria-label="anchor" href="#citation"></a>
+</h3>
+<p>If you used or adapted SCAVENGE in your study, please cite our paper <a href="https://github.com/fl-yu/SCAVENGE" class="external-link">bioRxiv</a>|<a href="https://github.com/fl-yu/SCAVENGE" class="external-link">PubMed</a>.<br><em>Variant to function mapping at single-cell resolution through network propagation.</em></p>
+</div>
+<div class="section level3">
+<h3 id="contact">Contact:<a class="anchor" aria-label="anchor" href="#contact"></a>
+</h3>
+<p>If you run into issues and would like to report them, you can use the “Issues” tab on the left hand side.<br>
+Alternatively, you can contact authors: fyu{at}broadinstitute.org or sankaran{at}broadinstitute.org.</p>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;= 2)</li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Fulong Yu <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6100-8300" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing SCAVENGE</a></li>
 </ul>
 </div>
+
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
+<ul class="list-unstyled">
+<li>Fulong Yu <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-6100-8300" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+</ul>
+</div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Fulong Yu.</p>
+  <p></p>
+<p>Developed by Fulong Yu.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -108,6 +152,8 @@
 
   
 
+
+  
 
   </body>
 </html>
