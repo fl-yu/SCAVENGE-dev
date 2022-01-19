@@ -38,7 +38,8 @@ Suggests:
     SummarizedExperiment,
     GenomicRanges,
     S4Vectors,
-    BuenColors
+    BuenColors,
+    rmarkdown
 biocViews: Variant, Function, CellBasedAssays, Network, 
     Trajectory, CellType, Epigenetics, ATACSeq, SingleCell
 VignetteBuilder: knitr
