@@ -37,7 +37,8 @@ Suggests:
     gchromVAR,
     SummarizedExperiment,
     GenomicRanges,
-    S4Vectors
+    S4Vectors,
+    BuenColors
 biocViews: Variant, Function, CellBasedAssays, Network, 
     Trajectory, CellType, Epigenetics, ATACSeq, SingleCell
 VignetteBuilder: knitr

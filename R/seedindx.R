@@ -8,6 +8,8 @@
 #' @return a logical vector indicating seed cells or not
 #' @export
 #'
+#' @importFrom stats pnorm
+#'
 #' @examples
 #' \dontrun{ seed_idx <- seedindx(z_score_mat$z_score, 0.1)}
 #'

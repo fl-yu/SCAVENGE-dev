@@ -28,7 +28,6 @@ library(BiocParallel)
 library(BSgenome.Hsapiens.UCSC.hg19)
 library(dplyr)
 set.seed(9527)
-register(MulticoreParam(4))
 ```
 
 ### Load example data
@@ -78,20 +77,25 @@ lsi_mat <- do_lsi(tfidf_mat, dims=30)
 mutualknn30 <- getmutualknn(lsi_mat, 30)
 ```
 
-**draw m-knn graph if you have low-dimentionality coordinates such as UMAP1 and UMAP2**
 
 ### Network propagation
 ```{r, message = FALSE, warning = FALSE, cache = TRUE}
 np_score <- randomWalk_sparse(intM=mutualknn30, queryGenes=rownames(mutualknn30)[seed_idx], gamma=0.05)
 ```
 **Trait relevant score (TRS) with scaled and normalized**
+A few cells are singletons are removed from further analysis
 ```{r, message = FALSE, warning = FALSE, cache = TRUE}
+omit_idx <- np_score==0
+sum(omit_idx)
+mutualknn30 <- mutualknn30[!omit_idx, !omit_idx]
+np_score <- np_score[!omit_idx]
 TRS <- np_score %>% capOutlierQuantile(., 0.95) %>% max_min_scale
 TRS <- TRS * scale_factor
-mono_mat <- data.frame(z_score_mat, seed_idx, np_score, TRS)
+mono_mat <- data.frame(z_score_mat[!omit_idx, ], seed_idx[!omit_idx], np_score, TRS)
 head(mono_mat)
 ```
-### Comparsion before and after SCAVENGE analysis 
+
+### UMAP plots of cell type annotation and cell-to-cell graph 
 - **Cell type annotation**
 ```{r, message = FALSE, warning = FALSE, cache = TRUE, fig1, fig.height = 3, fig.width = 5, fig.align = "center"}
 p <- ggplot(data=mono_mat, aes(x, y, color=color)) + geom_point(size=1, na.rm = TRUE) + 
@@ -99,6 +103,14 @@ p <- ggplot(data=mono_mat, aes(x, y, color=color)) + geom_point(size=1, na.rm = 
 p
 ```
 
+**draw cell-to-cell graph if you have low-dimensional coordinates such as UMAP1 and UMAP2**
+```{r, message = FALSE, warning = FALSE, cache = TRUE, fig0, fig.height = 3, fig.width = 5, fig.align = "center"}
+mutualknn30_graph <- graph_from_adjacency_matrix(mutualknn30, mode = "undirected", diag = F)
+plot.igraph(mutualknn30_graph, vertex.size=0.8, vertex.label=NA, vertex.color=adjustcolor("#c7ce3d", alpha.f = 1), vertex.frame.color=NA, 
+            edge.color=adjustcolor("#443dce", alpha.f = 1), edge.width=0.3, edge.curved=.5, 
+            layout=as.matrix(data.frame(mono_mat$x, mono_mat$y)))
+```
+### Comparsion before and after SCAVENGE analysis 
 - Z score based visualization 
 **Scatter plot**
 ```{r, message = FALSE, warning = FALSE, cache = TRUE, fig2, fig.height = 3, fig.width = 5, fig.align = "center"}
@@ -134,9 +146,9 @@ pp2
 ```
 
 ### Trait relevant cell determination from permutation test 
-**About 2 mins**
-```{r, message = FALSE, warning = FALSE, cache = TRUE}
-mono_permu <- get_sigcell_simple(knn_sparse_mat=mutualknn30, topidx=mono_mat$seed_idx, topseed_npscore=mono_mat$np_score, permutation_times=500, true_cell_significance=0.05, rda_output=F,  mycores=4, rw_gamma=0.05)
+**About 2 mins** please set @mycores >= 1 and @permutation_times >= 1,000 in the real setting
+```{r, message = TRUE, warning = FALSE, cache = TRUE}
+mono_permu <- get_sigcell_simple(knn_sparse_mat=mutualknn30, seed_idx=mono_mat$seed_idx, topseed_npscore=mono_mat$np_score, permutation_times=200, true_cell_significance=0.05, rda_output=F, mycores=4, rw_gamma=0.05)
 mono_mat2 <- data.frame(mono_mat, mono_permu)
 ```
 
@@ -151,8 +163,9 @@ mono_mat2 %>%
 
 - Depleted cells
 ```{r, message = FALSE, warning = FALSE, cache = TRUE, fig7, fig.height = 3, fig.width = 5, fig.align = "center"}
+mono_mat2$rev_true_cell_top_idx <- !mono_mat2$true_cell_top_idx
 mono_mat2 %>%
     group_by(color) %>% 
-        summarise(depleted_cell=sum(!true_cell_top_idx)) %>% 
+        summarise(depleted_cell=sum(rev_true_cell_top_idx)) %>% 
             ggplot(aes(x=color, y=depleted_cell, fill=color)) + geom_bar(stat="identity") + theme_classic()
 ```
